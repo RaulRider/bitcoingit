@@ -1,0 +1,15 @@
+
+testnet=1
+
+# server=1 tells Bitcoin-Qt and bitcoind to accept JSON-RPC commands
+
+server=1
+rpcuser=<USER>
+rpcpassword=<PASSWORD>
+
+
+# Para eclair
+#txindex=1
+#zmqpubrawblock=tcp://127.0.0.1:29000
+#zmqpubrawtx=tcp://127.0.0.1:29000
+#addresstype=p2sh-segwit

@@ -1,8 +1,8 @@
 # bitcoingit
 Cosas de bitcoin
 
-# BITCOIN
-instruction to install bitcoin in linix (from Stop&Decrypt)
+# BITCOIN INSTALLATION
+Instruction from Stop&Decrypt 
 
 ```
 sudo apt-get update;
@@ -35,31 +35,43 @@ git checkout tags/v0.16.3;
 make;
 sudo make install;
 ```
+# LND INSTALLATION 
+Instructions from https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md
 
-ECLAIR
+Para Linux (x86-64)
 ```
-eclair.bitcoind.rpcport=8332
-eclair.bitcoind.zmqblock ="tcp://127.0.0.1:29000"
-eclair.bitcoind.zmqtx="tcp://127.0.0.1:29000"
-eclair.server.port=9735
+wget https://dl.google.com/go/go1.12.3.linux-amd64.tar.gz
+sha256sum go1.12.3.linux-amd64.tar.gz | awk -F " " '{ print $1 }'
+# check 3924819eed16e55114f02d25d03e77c916ec40b7fd15c8acb5838b63135b03df
+tar -C /usr/local -xzf go1.12.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
 
+Para Linux (ARMv6) / RASPBERRY
+```
+wget https://dl.google.com/go/go1.12.3.linux-armv6l.tar.gz
+sha256sum go1.12.3.linux-armv6l.tar.gz | awk -F " " '{ print $1 }'
+#check efce59fac5ebc7302263ca1093fe2c3252c1b936f5b1ae08afc328eea0403c79
+tar -C /usr/local -xzf go1.12.3.linux-armv6l.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 
-Run Eclair GUI in headless mode
-You can run a GUI version of eclair without the GUI by providing the eclair.headless parameter.
-# Headless mode with the GUI JaR
-java -jar eclair-node-gui-<version>.jar -Declair.headless
+# Execute but We recommend placing the above in your .bashrc as well
+export GOPATH=~/gocode
+export PATH=$PATH:$GOPATH/bin
 
-Change the data directory
-The default data directory is ~/.eclair. You can change this with the eclair.datadir parameter.
-java -jar eclair-node-<version>.jar -Declair.datadir="/path/to/custom/eclair/data/folder/"
+# Installation itself
+go get -d github.com/lightningnetwork/lnd
+cd $GOPATH/src/github.com/lightningnetwork/lnd
+make && make install
 
-TO RUN ECLIAR-CLI
-eclair.api.port 	API HTTP port 	8080 ????
+```
+Updating
+To update your version of lnd to the latest version run the following commands:
+```
+cd $GOPATH/src/github.com/lightningnetwork/lnd
+git pull
+make clean && make && make install
 
-eclair.api.enabled=true
-eclair.api.password="changeit"
-Instal the eclair-cli bash file
-./eclair-cli -p <api_password> help
 ```
 
 # METODOS BITCOIN-CLI

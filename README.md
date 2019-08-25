@@ -45,6 +45,16 @@ sha256sum go1.12.3.linux-amd64.tar.gz | awk -F " " '{ print $1 }'
 # check 3924819eed16e55114f02d25d03e77c916ec40b7fd15c8acb5838b63135b03df
 tar -C /usr/local -xzf go1.12.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
+
+# Execute but We recommend placing the above in your .bashrc as well
+export GOPATH=~/gocode
+export PATH=$PATH:$GOPATH/bin
+
+# Installation itself
+go get -d github.com/lightningnetwork/lnd
+cd $GOPATH/src/github.com/lightningnetwork/lnd
+make && make install
+
 ```
 
 Para Linux (ARMv6) / RASPBERRY

@@ -1,29 +1,39 @@
 # bitcoingit
 Cosas de bitcoin
 
-BITCOIN
+# BITCOIN
+instruction to install bitcoin in linix (from Stop&Decrypt)
+
 ```
-[main]
-#por defecto port=8333
-#por defecto RPC-port=8332
+sudo apt-get update;
+sudo apt-get install git;
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3;
+sudo apt-get install libboost-all-dev;
 
-# Listen for RPC connections on this TCP port:
-rpcport=8332
+mkdir -p bitcoin-source && cd bitcoin-source
+git clone https://github.com/bitcoin/bitcoin.git;
 
-# You can use Bitcoin or bitcoind to send commands to Bitcoin/bitcoind
-# running on another host using this option:
-rpcconnect=127.0.0.1
-# OJO QUE PUEDE PRESENTAR PORBLEMAS
-# Mejor utilizar rpcallowip
-#rpcallowip=192.168.1.45 PARA UNA IP DETERMINADA DE LA LAN O WAN
-#rpcallowip=0.0.0.0/0    PARA QUE PUEDAN TODAS EN LA MISMA LAN
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz;
+echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz' | sha256sum -c;
+tar -xvf db-4.8.30.NC.tar.gz;
+cd db-4.8.30.NC/build_unix;
+mkdir -p build;
+BDB_PREFIX=$(pwd)/build;
+../dist/configure --disable-shared --enable-cxx --with-pic --prefix=$BDB_PREFIX;
+sudo make install;
+cd ../..;
 
-zmqpubrawblock=tcp://127.0.0.1:29000
-zmqpubrawtx=tcp://127.0.0.1:29000
+sudo apt-get install libminiupnpc-dev;
+sudo apt-get install libzmq3-dev;
+sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler;
+sudo apt-get install libqrencode-dev;
 
-[test]
-#por defecto port=18333
-#por defecto RPC-port=18332
+cd bitcoin;
+git checkout tags/v0.16.3;
+./autogen.sh;
+./configure CPPFLAGS="-I${BDB_PREFIX}/include/ -O2" LDFLAGS="-L${BDB_PREFIX}/lib/" --with-gui;
+make;
+sudo make install;
 ```
 
 ECLAIR

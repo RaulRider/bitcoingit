@@ -1,4 +1,27 @@
-CONFIGURACION DE bitcoin.conf y eclair.conf
+# BITCOIN PPA
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt update
+sudo apt install bitcoin-qt bitcoind
+
+# INSTALL GO
+wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
+sha256sum go1.13.linux-amd64.tar.gz | awk -F " " '{ print $1 }'
+
+The final output of the command above should be 68a2297eb099d1a76097905a2ce334e3155004ec08cdea85f24527be3c48e856. 
+
+tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+
+# INSTALL LND
+export GOPATH=~/gocode
+export PATH=$PATH:$GOPATH/bin
+
+go get -d github.com/lightningnetwork/lnd
+cd $GOPATH/src/github.com/lightningnetwork/lnd
+make && make install
+
+
+# CONFIGURACION DE bitcoin.conf y eclair.conf
 
 #BITCOIN
 
